@@ -54,7 +54,7 @@ result[row][column] will return undefined if no data exists in that slot,
 otherwise it will contain an array of all data that fell in that slot.
 
 Something like this is perfectly legal too:
-var result = pivot(data, ['treatment'], {});
+var result = pivot(data, ['treatment'], [], {});
 
 It aggregates/sorts the data based on treatment.
 
