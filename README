@@ -1,0 +1,62 @@
+json.pivot
+
+*What:* 
+A JavaScript function for performing "pivot table"-like operations on JSON data.
+
+*How:* 
+call pivotData(data, rowNames, columnNames, userOptions)
+  data - an array of *homogeneous json objects. (* at least share some common fields that we're interested in)
+  rowNames - an array of property names, each one is a property of all objects in data 
+  colNames - an array of property names, each one is a property of all objects in data 
+  (colNames and rowNames should not contain any similar values)
+  userOptions - to be documented later. leave it null or peek at the code
+
+
+Example:
+var data = [
+  {subject : 1, day : 1, value : 31.25, treatment : 'A' },
+  {subject : 1, day : 2, value : 31.25, treatment : 'C' },
+  {subject : 1, day : 3, value : 33.12, treatment : 'B' },
+  {subject : 2, day : 1, value : 25.87, treatment : 'C' },
+  {subject : 2, day : 2, value : 26.63, treatment : 'A' },
+  {subject : 2, day : 3, value : 26.00, treatment : 'B' },
+  {subject : 3, day : 1, value : 23.75, treatment : 'C' },
+  {subject : 3, day : 2, value : 26.13, treatment : 'B' },
+  {subject : 3, day : 3, value : 24.87, treatment : 'A' },
+  {subject : 4, day : 1, value : 28.75, treatment : 'A' },
+  {subject : 4, day : 2, value : 29.63, treatment : 'B' },
+  {subject : 4, day : 3, value : 29.87, treatment : 'C' },
+  {subject : 5, day : 1, value : 24.50, treatment : 'C' },
+  {subject : 5, day : 2, value : 28.63, treatment : 'A' },
+  {subject : 5, day : 3, value : 28.37, treatment : 'B' },
+  {subject : 6, day : 1, value : 31.25, treatment : 'B' },
+  {subject : 6, day : 2, value : 30.63, treatment : 'A' },
+  {subject : 6, day : 3, value : 29.37, treatment : 'C' },
+  {subject : 7, day : 1, value : 25.50, treatment : 'B' },
+  {subject : 7, day : 2, value : 23.87, treatment : 'C' },
+  {subject : 7, day : 3, value : 24.00, treatment : 'A' },
+  {subject : 8, day : 1, value : 28.50, treatment : 'B' },
+  {subject : 8, day : 2, value : 27.87, treatment : 'C' },
+  {subject : 8, day : 3, value : 30.12, treatment : 'A' },
+  {subject : 9, day : 1, value : 25.13, treatment : 'A' },
+  {subject : 9, day : 2, value : 27.00, treatment : 'B' },
+  {subject : 9, day : 3, value : 24.63, treatment : 'C' }
+];
+
+var result = pivotData(data, ['subject'], ['day','treatment'], {});
+
+result is an array of rows, of columns of data.
+In this case, rows are sorted by subject, columns are sorted by day, then treatment.
+result.rowHeaders containes information about the row headers.
+result.columnHeaders containes information about the column headers.
+
+result[row][column] will return undefined if no data exists in that slot,
+otherwise it will contain an array of all data that fell in that slot.
+
+Something like this is perfectly legal too:
+pivotData(data, ['treatment'], {});
+
+It aggregates/sorts the data based on treatment.
+
+-Mark Bolusmjak
+bolusmjak@gmail.com
