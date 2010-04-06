@@ -4,7 +4,7 @@ json.pivot
 A JavaScript function for performing "pivot table"-like operations on JSON data.
 
 *How:* 
-call pivotData(data, rowNames, columnNames, userOptions)
+call pivot(data, rowNames, columnNames, userOptions)
   data - an array of *homogeneous json objects. (* at least share some common fields that we're interested in)
   rowNames - an array of property names, each one is a property of all objects in data 
   colNames - an array of property names, each one is a property of all objects in data 
@@ -43,7 +43,7 @@ var data = [
   {subject : 9, day : 3, value : 24.63, treatment : 'C' }
 ];
 
-var result = pivotData(data, ['subject'], ['day','treatment'], {});
+var result = pivot(data, ['subject'], ['day','treatment'], {});
 
 result is an array of rows, of columns of data.
 In this case, rows are sorted by subject, columns are sorted by day, then treatment.
@@ -54,7 +54,7 @@ result[row][column] will return undefined if no data exists in that slot,
 otherwise it will contain an array of all data that fell in that slot.
 
 Something like this is perfectly legal too:
-pivotData(data, ['treatment'], {});
+var result = pivot(data, ['treatment'], {});
 
 It aggregates/sorts the data based on treatment.
 
