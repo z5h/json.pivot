@@ -157,7 +157,7 @@ var pivot = (function() {
         var extracted = [];
         var length = data.length;
         for (var i = 0; i < length; i++) {
-          extracted = Array.concat(extracted, extractor(data[i]));
+          extracted = extracted.concat(extractor(data[i]));
         }
         return extracted;
       } else {
